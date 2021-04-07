@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit, ViewChild } from '@angular/core';
 import {CRUDService} from "../autoclub-data-table/crud.service";
 
 //  export interface PeriodicElement {
@@ -43,7 +43,7 @@ import {CRUDService} from "../autoclub-data-table/crud.service";
     templateUrl: './autoclub-data-table.component.html',
     styleUrls: ['./autoclub-data-table.component.css']
   })
-  export class AutoclubDataTableComponent implements OnInit {
+  export class AutoclubDataTableComponent {
    
     constructor(public crudService: CRUDService) { }
   
@@ -70,7 +70,6 @@ import {CRUDService} from "../autoclub-data-table/crud.service";
         })      
     }
    
-
 
     
     
