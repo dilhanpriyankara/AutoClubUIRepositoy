@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {CRUDService} from "../autoclub-data-table/crud.service";
 
- export interface PeriodicElement {
-   id: number;
-   firstName: number;
-   lastName: number;
-   email: string;
- }
+//  export interface PeriodicElement {
+//    id: number;
+//    firstName: number;
+//    lastName: number;
+//    email: string;
+//  }
 
 // const ELEMENT_DATA: PeriodicElement[] = [
 //   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
@@ -54,7 +54,7 @@ import {CRUDService} from "../autoclub-data-table/crud.service";
       
   }
     
-    displayedColumns: string[] = ['id', 'firstName', 'lastName', 'email'];    
+    displayedColumns: string[] = ['id', 'firstName', 'lastName', 'email','phone','carModel','carMake','ageOfVehicle','manufacturedDate'];    
     dataSource: any 
     
     

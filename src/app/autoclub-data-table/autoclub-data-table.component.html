@@ -27,6 +27,31 @@
       <th mat-header-cell *matHeaderCellDef> email </th>
       <td mat-cell *matCellDef="let element"> {{element.email}} </td>
     </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef> phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="carModel">
+      <th mat-header-cell *matHeaderCellDef> carModel </th>
+      <td mat-cell *matCellDef="let element"> {{element.carModel}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="carMake">
+      <th mat-header-cell *matHeaderCellDef> carMake </th>
+      <td mat-cell *matCellDef="let element"> {{element.carMake}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ageOfVehicle">
+      <th mat-header-cell *matHeaderCellDef> ageOfVehicle </th>
+      <td mat-cell *matCellDef="let element"> {{element.ageOfVehicle}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="manufacturedDate">
+      <th mat-header-cell *matHeaderCellDef> manufacturedDate </th>
+      <td mat-cell *matCellDef="let element"> {{element.manufacturedDate}} </td>
+    </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
