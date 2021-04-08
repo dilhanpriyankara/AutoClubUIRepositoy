@@ -14,9 +14,9 @@ export class AutoclubDataUploadComponent implements OnInit {
   itemclick() {
    
 
-    this.uploadServiceService.uploaddata().subscribe(response => {
+    this.uploadServiceService.uploaddata().subscribe((res) => {
       console.log("ok clicked");
-      console.log(response);
+      console.log(res);
      
      })      
  }

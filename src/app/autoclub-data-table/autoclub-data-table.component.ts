@@ -1,6 +1,7 @@
 import { Component, OnInit,AfterViewInit, ViewChild } from '@angular/core';
 import {CRUDService} from "../autoclub-data-table/crud.service";
-
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from "../confirmation-dialog/confirmation-dialog.component";
 //  export interface PeriodicElement {
 //    id: number;
 //    firstName: number;
@@ -45,7 +46,7 @@ import {CRUDService} from "../autoclub-data-table/crud.service";
   })
   export class AutoclubDataTableComponent {
    
-    constructor(public crudService: CRUDService) { }
+    constructor(public crudService: CRUDService, public dialog: MatDialog) { }
   
     
   
@@ -54,7 +55,7 @@ import {CRUDService} from "../autoclub-data-table/crud.service";
       
   }
     
-    displayedColumns: string[] = ['id', 'firstName', 'lastName', 'email','phone','carModel','carMake','ageOfVehicle','manufacturedDate'];    
+    displayedColumns: string[] = ['id', 'firstName', 'lastName', 'email','phone','carModel','carMake','ageOfVehicle','manufacturedDate','actions'];    
     dataSource: any 
     
     
@@ -68,6 +69,17 @@ import {CRUDService} from "../autoclub-data-table/crud.service";
          this.dataSource = obj.data.allAutoclubdata.nodes;
         
         })      
+    }
+
+
+    delete(id: any) {
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent);  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          console.log(result);
+          this.crudService.remove(id); 
+        }
+      });
     }
    
 

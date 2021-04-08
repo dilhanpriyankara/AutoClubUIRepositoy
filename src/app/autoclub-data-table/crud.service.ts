@@ -41,8 +41,14 @@ export class CRUDService {
     )
     
   }
+  
 
-  processError(err) {
+  remove(id: any){
+    console.log("ok delete"+id);
+    
+  }
+
+  processError(err: { error: { message: string; }; status: any; message: any; }) {
     let message = '';
     if(err.error instanceof ErrorEvent) {
      message = err.error.message;
@@ -52,6 +58,8 @@ export class CRUDService {
     console.log(message);
     return throwError(message);
  }
+
+ 
 
 
 }

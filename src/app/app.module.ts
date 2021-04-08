@@ -8,17 +8,21 @@ import {MatTableModule} from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { AutoclubDataUploadComponent } from './autoclub-data-upload/autoclub-data-upload.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
     AutoclubDataTableComponent,
-    AutoclubDataUploadComponent
+    AutoclubDataUploadComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTableModule,
+    MatDialogModule,
     RouterModule.forRoot([
       {path: 'autoclub-data-table', component: AutoclubDataTableComponent},
       {path: 'autoclub-data-upload', component: AutoclubDataUploadComponent},
@@ -28,6 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmationDialogComponent]
 })
 export class AppModule { }
