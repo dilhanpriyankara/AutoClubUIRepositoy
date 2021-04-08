@@ -2,6 +2,7 @@ import { Component, OnInit,AfterViewInit, ViewChild } from '@angular/core';
 import {CRUDService} from "../autoclub-data-table/crud.service";
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from "../confirmation-dialog/confirmation-dialog.component";
+import { UpdateFormDialogComponent } from "../update-form-dialog/update-form-dialog.component";
 //  export interface PeriodicElement {
 //    id: number;
 //    firstName: number;
@@ -73,13 +74,29 @@ import { ConfirmationDialogComponent } from "../confirmation-dialog/confirmation
 
 
     delete(id: any) {
-      const dialogRef = this.dialog.open(ConfirmationDialogComponent);  
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          console.log(result);
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent);  
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            console.log(result);
           this.crudService.remove(id).subscribe(res=>{
             console.log(res);
-          }); 
+            }); 
+          }
+        });
+    }
+
+
+    edit(data: any) {
+      const dialogRef = this.dialog.open(UpdateFormDialogComponent, {
+        width: '400px',
+        data: data
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {          
+          this.crudService.update(data).subscribe(res=>{
+            console.log(res);
+          });
         }
       });
     }

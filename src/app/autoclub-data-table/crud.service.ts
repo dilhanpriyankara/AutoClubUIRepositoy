@@ -3,6 +3,7 @@ import { retry, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import {FormData} from "../update-form-dialog/formData";
 export class AutoclubData {
   id: number;
   firstName: string;
@@ -43,9 +44,17 @@ export class CRUDService {
   }
   
 
-  remove(id: number):Observable<any>{
-    console.log("ok delete"+id);
+  remove(id: number):Observable<any>{   
     return this.httpClient.delete<any>(this.endpoint + '/dashboarddata/'+id)
+    .pipe(
+      retry(1),
+      catchError(this.processError)
+    )
+  }
+
+  update(object: FormData):Observable<any>{   
+   
+    return this.httpClient.put<any>(this.endpoint + '/dashboarddata/' + object.id, JSON.stringify(object), this.httpHeader)
     .pipe(
       retry(1),
       catchError(this.processError)

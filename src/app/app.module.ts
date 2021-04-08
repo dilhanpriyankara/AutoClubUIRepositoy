@@ -10,12 +10,25 @@ import { AutoclubDataUploadComponent } from './autoclub-data-upload/autoclub-dat
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UpdateFormDialogComponent } from './update-form-dialog/update-form-dialog.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
+import { CdkTableModule } from '@angular/cdk/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
+
 @NgModule({
   declarations: [
     AppComponent,
     AutoclubDataTableComponent,
     AutoclubDataUploadComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    UpdateFormDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +36,18 @@ import { MatDialogModule } from '@angular/material/dialog';
     BrowserAnimationsModule,
     MatTableModule,
     MatDialogModule,
+
+    ReactiveFormsModule,
+    CdkTableModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,   
+    MatButtonModule,
+    MatDialogModule,
+    ReactiveFormsModule,  
+    MatSelectModule,
+    MatInputModule,
+    MatFormFieldModule,
     RouterModule.forRoot([
       {path: 'autoclub-data-table', component: AutoclubDataTableComponent},
       {path: 'autoclub-data-upload', component: AutoclubDataUploadComponent},
