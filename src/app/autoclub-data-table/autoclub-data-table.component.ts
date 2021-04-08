@@ -77,7 +77,9 @@ import { ConfirmationDialogComponent } from "../confirmation-dialog/confirmation
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           console.log(result);
-          this.crudService.remove(id); 
+          this.crudService.remove(id).subscribe(res=>{
+            console.log(res);
+          }); 
         }
       });
     }

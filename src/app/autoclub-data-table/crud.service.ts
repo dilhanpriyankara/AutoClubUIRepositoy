@@ -43,9 +43,13 @@ export class CRUDService {
   }
   
 
-  remove(id: any){
+  remove(id: number):Observable<any>{
     console.log("ok delete"+id);
-    
+    return this.httpClient.delete<any>(this.endpoint + '/dashboarddata/'+id)
+    .pipe(
+      retry(1),
+      catchError(this.processError)
+    )
   }
 
   processError(err: { error: { message: string; }; status: any; message: any; }) {
