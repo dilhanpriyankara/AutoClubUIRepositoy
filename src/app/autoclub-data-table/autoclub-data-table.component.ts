@@ -72,6 +72,21 @@ import { UpdateFormDialogComponent } from "../update-form-dialog/update-form-dia
         })      
     }
 
+    
+
+    wildcardFilterChar(filterValue: string) {    
+      if (filterValue == '') {          
+          this.fetchData();
+      }
+      else if (filterValue != '') {
+          this.dataSource = this.dataSource.filter(e =>
+              e.firstName.toLowerCase().includes(filterValue.trim().toLowerCase()) ||
+              e.lastName.toLowerCase().includes(filterValue.trim().toLowerCase()) 
+                  
+        );
+      }
+  }
+
 
     delete(id: any) {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent);  
@@ -94,8 +109,8 @@ import { UpdateFormDialogComponent } from "../update-form-dialog/update-form-dia
     
       dialogRef.afterClosed().subscribe(result => {
         if (result) {          
-          this.crudService.update(data).subscribe(res=>{
-            console.log(res);
+          this.crudService.update(result).subscribe(res=>{
+            console.log(res); 
           });
         }
       });
