@@ -61,6 +61,16 @@ export class CRUDService {
     )
   }
 
+  getPaginationData(pagesize: number): Observable<AutoclubData> {
+    return this.httpClient.get<AutoclubData>(this.endpoint + '/dashboarddata/'+pagesize)
+    .pipe(
+      retry(1),
+      catchError(this.processError)
+    )
+    
+  }
+  
+
   processError(err: { error: { message: string; }; status: any; message: any; }) {
     let message = '';
     if(err.error instanceof ErrorEvent) {
@@ -73,6 +83,5 @@ export class CRUDService {
  }
 
  
-
 
 }

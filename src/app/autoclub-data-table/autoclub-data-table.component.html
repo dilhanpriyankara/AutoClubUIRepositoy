@@ -1,7 +1,17 @@
 <p>autoclub-data Grid</p>
 <div>
-  <input type="text" #input (keyup)="wildcardFilterChar($event.target.value)" placeholder="Filter">
-
+<!--<input type="text" #input (keyup)="wildcardFilterChar($event.target.value)" placeholder="Filter">-->
+<div style="text-align:center;">
+  <mat-form-field appearance="fill" >   
+    <input matInput  (keyup)="wildcardFilterChar($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+ 
+  <mat-paginator [length]="100"
+                [pageSize]="100"
+                [pageSizeOptions]="[100, 200, 300, 400,500,600,700]"
+                (page)="handlePage($event)">
+  </mat-paginator>
+</div>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.

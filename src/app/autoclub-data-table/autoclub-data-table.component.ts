@@ -66,7 +66,7 @@ import { UpdateFormDialogComponent } from "../update-form-dialog/update-form-dia
          var jsonstring= JSON.stringify(res);
          const obj = JSON.parse(jsonstring);
          console.log(JSON.stringify(obj.data.allAutoclubdata.nodes));
-         var data1=JSON.stringify(obj.data.allAutoclubdata.nodes);
+         var data1=JSON.stringify(obj.data.allAutoclubdata.nodes);        
          this.dataSource = obj.data.allAutoclubdata.nodes;
         
         })      
@@ -87,6 +87,17 @@ import { UpdateFormDialogComponent } from "../update-form-dialog/update-form-dia
       }
   }
 
+  public handlePage(e: any) {   
+    console.log(e.pageSize-100);
+    this.crudService.getPaginationData(e.pageSize-100).subscribe((res: {}) => {
+      var jsonstring= JSON.stringify(res);
+      const obj = JSON.parse(jsonstring);
+      console.log(JSON.stringify(obj.data.allAutoclubdata.nodes));    
+      this.dataSource = obj.data.allAutoclubdata.nodes;
+     
+    })      
+    
+  }
 
     delete(id: any) {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent);  
@@ -94,7 +105,7 @@ import { UpdateFormDialogComponent } from "../update-form-dialog/update-form-dia
           if (result) {
             console.log(result);
           this.crudService.remove(id).subscribe(res=>{
-            console.log(res);
+            console.log(res);            
             }); 
           }
         });
