@@ -14,6 +14,11 @@ export class UploadServiceService {
 
   constructor(private httpClient: HttpClient) { }
 
+  httpHeader = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  } 
  
    
  uploaddata(): Observable<any> {
@@ -23,6 +28,15 @@ export class UploadServiceService {
       catchError(this.processError)
     )
     
+  }
+
+
+  readUploadData(object):Observable<any>{    
+    return this.httpClient.post<any>(this.endpoint + '/csvreader', JSON.stringify(object), this.httpHeader)
+    .pipe(
+      retry(1),
+      catchError(this.processError)
+    )
   }
 
   processError(err) {
@@ -35,4 +49,8 @@ export class UploadServiceService {
     console.log(message);
     return throwError(message);
  }
+
+
+ 
+
 }

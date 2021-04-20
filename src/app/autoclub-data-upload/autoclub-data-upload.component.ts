@@ -20,4 +20,20 @@ export class AutoclubDataUploadComponent implements OnInit {
      
      })      
  }
+
+ fileupload(files: FileList){
+  if (files && files.length > 0) {
+    let file: File = files.item(0);
+    let fileReader: FileReader = new FileReader();
+    fileReader.readAsText(file);
+    fileReader.onload = ev => {
+      let csvdata = fileReader.result.toString();
+      let body = {data:csvdata};      
+      this.uploadServiceService.readUploadData(body).subscribe((res)=>{
+        console.log(res);
+      })
+      
+    };
+  }
+ }
 }
