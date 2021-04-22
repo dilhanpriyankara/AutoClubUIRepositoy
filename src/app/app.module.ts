@@ -21,6 +21,8 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { AutoclubDataDownloadComponent } from './autoclub-data-download/autoclub-data-download.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     AutoclubDataTableComponent,
     AutoclubDataUploadComponent,
     ConfirmationDialogComponent,
-    UpdateFormDialogComponent
+    UpdateFormDialogComponent,    
+    AutoclubDataDownloadComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     BrowserAnimationsModule,
     MatTableModule,
     MatDialogModule,
-
+    FormsModule,
     ReactiveFormsModule,
     CdkTableModule,
     MatTableModule,
@@ -51,7 +54,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     RouterModule.forRoot([
       {path: 'autoclub-data-table', component: AutoclubDataTableComponent},
       {path: 'autoclub-data-upload', component: AutoclubDataUploadComponent},
-     // {path: '', redirectTo: '/heroes-list', pathMatch: 'full'}
+      {path: 'autoclub-data-download', component: AutoclubDataDownloadComponent}
       
     ]),
     HttpClientModule,

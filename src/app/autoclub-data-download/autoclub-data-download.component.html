@@ -1,0 +1,38 @@
+<style>
+    .cell  { padding: 20px; border: 0px solid #999; }
+
+    .table        { display: table }
+    .table .row   { display: table-row; }
+    .table .cell  { display: table-cell; }
+
+    .flexbox       { display: flex; flex-direction: column; }
+    .flexbox .row  { display: flex; }
+</style>
+
+<p>autoclub-data-download !</p>
+
+<form #myform = "ngForm" (ngSubmit) = "onSubmit(myform)" >  
+    <div class="table">
+        <div class="row">
+            <div class="cell">
+                <label>Vehicle age greater than</label> &nbsp;&nbsp;
+                <select name="selectedQuantity" id="aantal" class="form-control" [(ngModel)]="selectedQuantity">
+                    <option *ngFor="let option of options" [value]="option" >{{option}}</option>
+                </select> 
+            </div>
+            <div class="cell">
+                <input type = "submit" value = "Download">
+            </div>
+        </div>        
+    </div>
+    <br>
+    <br>
+    <br>
+    <div>
+        
+    </div>
+    
+   
+    
+   
+  </form>
