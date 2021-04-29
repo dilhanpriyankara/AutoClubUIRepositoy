@@ -12,6 +12,9 @@ export class AutoclubDataDownloadComponent implements OnInit {
   constructor(private autoclubDataDownloadService:AutoclubDataDownloadService) { }
 
   ngOnInit(): void {
+    this.autoclubDataDownloadService.receiveMassage().subscribe((data)=>{
+      console.log(data);
+    })
   }
 
   options: string[] = ["10", "15", "20","25", "30", "35","40"];
@@ -21,7 +24,10 @@ export class AutoclubDataDownloadComponent implements OnInit {
     console.log('Your form data : ', form.value.selectedQuantity);
     this.autoclubDataDownloadService.getDownloadCsv(form.value.selectedQuantity).subscribe((result)=>{
       console.log(result);
-    });
+
+    });   
+   
+   
   }
 
   

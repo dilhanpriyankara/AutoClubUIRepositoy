@@ -1,5 +1,5 @@
 <style>
-    .cell  { padding: 20px; border: 0px solid #999; }
+    .cell  { padding: 20px; border: 0px solid #999;width: 10px; }
 
     .table        { display: table }
     .table .row   { display: table-row; }
@@ -19,11 +19,26 @@
                 <select name="selectedQuantity" id="aantal" class="form-control" [(ngModel)]="selectedQuantity">
                     <option *ngFor="let option of options" [value]="option" >{{option}}</option>
                 </select> 
-            </div>
-            <div class="cell">
-                <input type = "submit" value = "Download">
-            </div>
-        </div>        
+            </div>            
+            <div class="cell"> </div>                      
+            <div class="cell"> </div> 
+            <div class="cell"> </div> 
+            <div class="cell"> </div> 
+            <div class="cell"> </div>   
+            <div class="cell"> </div> 
+            <div class="cell"> </div> 
+            <div class="cell"> </div> 
+            <div class="cell"> </div>     
+        </div> 
+
+        <div class="cell">
+            <input type = "submit" value = "Download">
+        </div>
+       
+              
+
+       
+           
     </div>
     <br>
     <br>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +24,10 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { AutoclubDataDownloadComponent } from './autoclub-data-download/autoclub-data-download.component';
 import { FormsModule } from '@angular/forms';
 
+import { FormdataComponent } from './formdata/formdata.component';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +35,7 @@ import { FormsModule } from '@angular/forms';
     AutoclubDataUploadComponent,
     ConfirmationDialogComponent,
     UpdateFormDialogComponent,    
-    AutoclubDataDownloadComponent
+    AutoclubDataDownloadComponent, FormdataComponent 
   ],
   imports: [
     BrowserModule,
@@ -54,10 +58,13 @@ import { FormsModule } from '@angular/forms';
     RouterModule.forRoot([
       {path: 'autoclub-data-table', component: AutoclubDataTableComponent},
       {path: 'autoclub-data-upload', component: AutoclubDataUploadComponent},
-      {path: 'autoclub-data-download', component: AutoclubDataDownloadComponent}
+      {path: 'autoclub-data-download', component: AutoclubDataDownloadComponent},
+      {path: 'formdata', component:FormdataComponent}
       
     ]),
     HttpClientModule,
+   
+    
   ],
   providers: [],
   bootstrap: [AppComponent],
