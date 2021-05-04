@@ -39,8 +39,7 @@ export class AutoclubDataDownloadService {
 
   receiveMassage():Observable<any>{   
     return new Observable((subscriber)=>{
-      this.socket.on('csvcompleted',(data)=>{
-        console.log(data);
+      this.socket.on('csvcompleted',(data)=>{        
         subscriber.next(data);
     })
   })

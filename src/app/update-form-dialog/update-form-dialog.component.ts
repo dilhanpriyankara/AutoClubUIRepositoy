@@ -21,7 +21,7 @@ export class UpdateFormDialogComponent implements OnInit {
       "carMake":new FormControl('', Validators.required),
       "ageOfVehicle":new FormControl('', Validators.required), 
       "manufacturedDate":new FormControl('', Validators.required), 
-           
+      "__typename":new FormControl('', Validators.required), 
       
     });
 
