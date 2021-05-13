@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {NgForm} from '@angular/forms';
+import { Apollo } from 'apollo-angular';
 import { AutoclubDataDownloadService } from './autoclub-data-download.service';
-
+import gql from 'graphql-tag';
 
 @Component({
   selector: 'app-autoclub-data-download',
@@ -10,7 +11,8 @@ import { AutoclubDataDownloadService } from './autoclub-data-download.service';
 })
 export class AutoclubDataDownloadComponent implements OnInit {
   
-  constructor(private autoclubDataDownloadService:AutoclubDataDownloadService) { }
+  constructor(private autoclubDataDownloadService:AutoclubDataDownloadService,
+    private apollo: Apollo,  ) { }
 
   @ViewChild('alert', { static: true }) alert: ElementRef;
 
@@ -36,11 +38,34 @@ export class AutoclubDataDownloadComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     console.log('Your form data : ', form.value.selectedQuantity);
-    this.autoclubDataDownloadService.getDownloadCsv(form.value.selectedQuantity).subscribe((result)=>{
-      console.log(result);
+   //this.autoclubDataDownloadService.getDownloadCsv(form.value.selectedQuantity).subscribe((result)=>{
+    //  console.log(result);
       
+      return this.apollo.watchQuery({query : gql`
+      query{
+        exportDatatoCSV(ageofcar:${form.value.selectedQuantity}){    
+          id
+          firstName
+          lastName
+          email
+          carModel
+          carMake
+          ageOfVehicle
+          manufacturedDate
+        }
+      }
+`
+
+    }).valueChanges.subscribe(({ data }: any) => {
+
+    //console.log(data);
+   
+    }) 
+
+
+
      
-    });   
+    //});   
    
    
   }
