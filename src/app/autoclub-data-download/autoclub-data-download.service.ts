@@ -4,28 +4,22 @@ import {observable, Observable, Subscriber, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 //import { Socket } from 'ngx-socket-io';
-import io from 'socket.io-client'; 
+//import io from 'socket.io-client'; 
+
+import * as socketCluster from 'socketcluster-client';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AutoclubDataDownloadService {
 
-  endpoint = 'http://localhost:3200';
-  socketurl = 'http://localhost:3200/websocketpath';
-  socket: any;
-  constructor(private httpClient: HttpClient,
-              /*private socket: Socket*/) { 
-                console.log("connectionTowebSocket====>>>");
-                this.socket=io(this.socketurl, { transports: ['websocket'], timeout: 60000 });
+  endpoint = 'http://localhost:3200'; 
+  socket = socketCluster.create({
+    hostname: "localhost",
+    port: 8000,
+  });
+  constructor(private httpClient: HttpClient) { 
                           
-                this.socket.once('connect', () => {
-                  console.log('progress-listener connected');
-                  this.socket.emit("progress-listener-ready",{name:"socketOK"});
-                });
-                this.socket.once('disconnect', () => {
-                  console.log('progress-listener disconnected');
-                });
               }  
  
               
@@ -37,15 +31,25 @@ export class AutoclubDataDownloadService {
     
   }
 
-  receiveMassage():Observable<any>{   
-    return new Observable((subscriber)=>{
-      this.socket.on('csvcompleted',(data)=>{        
-        subscriber.next(data);
-    })
-  })
+  receiveMassage():Observable<any>{
+ 
+    return new Observable((subscriber)=>{ 
+      (async () => {
+        let channel = this.socket.subscribe("csvcompletedChanel");
+      
+        //send data to the  server
+        //this.socket.transmit("channelName", "Hi Im a new client ");
     
-   
-  }
+        //data received from server
+        for await (let data of channel) {
+          // ... Handle channel data.       
+          subscriber.next(data);  
+        }  
+        
+      })();
+        
+    })
+}
 
   
 
