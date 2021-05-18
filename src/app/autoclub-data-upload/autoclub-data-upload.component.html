@@ -1,9 +1,13 @@
-<p>autoclub-data-upload filese</p>
-<button  mat-flat-button color="primary" (click)="itemclick()" style="display: none;">Upload</button>
 
-<div>
-    <h1 style="text-align:center">CSV File Upload</h1>
-    <form enctype="multipart/form-data"> 
-        <input  type="file" name="csvreport" id="csvreport" (change)="fileupload($event.target.files)">
+<button  mat-flat-button color="primary" (click)="itemclick()" style="display: none;">Upload</button>
+<div class="card">
+    <div class="card-header" style="text-align:center;height:1.5cm;">
+        <h1 > CSV File Upload</h1>
+    </div>
+</div>
+<br>
+<div >    
+    <form enctype="multipart/form-data" > 
+        <input class="btn btn-secondary" type="file" name="csvreport" id="csvreport" (change)="fileupload($event.target.files)">
     </form>
 </div>

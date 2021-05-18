@@ -2,3 +2,12 @@ table {
     width: 100%;
   }
   
+
+  .card  {
+    color: #6c757d;
+  }
+
+  th {
+    background-color:#6c757d;
+    color: #fff;
+  }

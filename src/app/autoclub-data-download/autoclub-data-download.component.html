@@ -9,14 +9,20 @@
     .flexbox .row  { display: flex; }
 </style>
 
-<p>autoclub-data-download !</p>
 
-<form #myform = "ngForm" (ngSubmit) = "onSubmit(myform)" >  
+
+<form #myform = "ngForm" (ngSubmit) = "onSubmit(myform)" > 
+    <div class="card">
+        <div class="card-header" style="text-align:center;height:1.5cm;">
+            <h1 > Autoclub-data-download</h1>
+        </div>
+    </div> 
+    <br>
     <div class="table">
         <div class="row">
-            <div class="cell">
-                <label>Vehicle age greater than</label> &nbsp;&nbsp;
-                <select name="selectedQuantity" id="aantal" class="form-control" [(ngModel)]="selectedQuantity">
+            <div class="cell" style="background-color: #6c757d;color: #fff;">
+                <label >Vehicle age greater than</label> &nbsp;&nbsp;
+                <select style="background-color: #a2acb6;color: #fff;"  name="selectedQuantity" id="aantal" class="form-control" [(ngModel)]="selectedQuantity">
                     <option *ngFor="let option of options" [value]="option" >{{option}}</option>
                 </select> 
             </div>            
@@ -29,7 +35,7 @@
             <div class="cell"> </div> 
             <div class="cell"> </div> 
             <div class="cell"> 
-                <div #alert class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf=ishide>
+                <div #alert class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf=ishide style="background-color: #2acf82;color:#6c757d;">
                     <button type="button" class="close" aria-label="Close" >
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -39,7 +45,7 @@
         </div> 
 
         <div class="cell">
-            <input type = "submit" value = "Download" >
+            <input type = "submit" value = "Download" class="btn btn-secondary" >
         </div>
        
               

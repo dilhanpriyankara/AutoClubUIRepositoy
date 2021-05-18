@@ -4,21 +4,28 @@
 <table  class="table thead-light" >
 <thead class="table-dark">
     <tr>
-        <th scope="col">name  </th>       
-        <th scope="col">age   </th>  
-        <th scope="col"> address </th>  
-        <th scope="col">school  </th>  
-        <th scope="col">country  </th>  
-    </tr>
+        <th scope="col">Id  </th>       
+        <th scope="col">First Name   </th>  
+        <th scope="col"> Last Name </th>  
+        <th scope="col">Email  </th>  
+        <th scope="col">Car Model  </th>
 
+        <th scope="col">Car Make  </th>       
+        <th scope="col">Age Of Vehicle   </th>  
+        <th scope="col"> Manufactured Date </th>
+       
+    </tr>
 </thead>
 <tbody>
     <tr *ngFor="let data of dataList">
-        <td>{{data.name}}</td>
-        <td>{{data.age}}</td>
-        <td>{{data.address}}</td>
-        <td>{{data.school}}</td>
-        <td>{{data.country}}</td>
+        <td>{{data.id}}</td>
+        <td>{{data.firstName}}</td>
+        <td>{{data.lastName}}</td>
+        <td>{{data.email}}</td>
+        <td>{{data.carModel}}</td>
+        <td>{{data.carMake}}</td>
+        <td>{{data.ageOfVehicle}}</td>
+        <td>{{data.manufacturedDate}}</td>        
     </tr>
 
 </tbody>
