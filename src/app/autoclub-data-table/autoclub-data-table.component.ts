@@ -74,8 +74,8 @@ import gql from 'graphql-tag';
 
   public handlePage(e: any) {
     
-    let pagesize=e.pageSize-100;
-    
+    let pagesize=(e.pageIndex*100);
+    console.log(pagesize);
     return this.apollo.watchQuery({query : gql`
                         query{
                           findPeginationData(pagesize:${pagesize}){    

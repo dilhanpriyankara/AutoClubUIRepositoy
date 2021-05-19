@@ -27,10 +27,10 @@ export class AutoclubDataUploadComponent implements OnInit {
     let fileReader: FileReader = new FileReader();
     fileReader.readAsText(file);
     fileReader.onload = ev => {
-      let csvdata = fileReader.result.toString();
+      let csvdata = fileReader.result.toString();     
       let body = {data:csvdata};      
       this.uploadServiceService.readUploadData(body).subscribe((res)=>{
-        console.log(res);
+        //console.log(res);
       })
       
     };

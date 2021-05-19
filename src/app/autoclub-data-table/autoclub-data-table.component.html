@@ -12,11 +12,16 @@
     <input matInput  (keyup)="wildcardFilterChar($event.target.value)" placeholder="Filter">
   </mat-form-field>
  
-  <mat-paginator [length]="100"
+  <!--<mat-paginator [length]="100"
                 [pageSize]="100"
                 [pageSizeOptions]="[100, 200, 300, 400,500,600,700,800,900,1000]"
                 (page)="handlePage($event)">
-  </mat-paginator>
+  </mat-paginator>-->
+  <mat-paginator [length]="1000"
+              [pageSize]="100"
+              [pageSizeOptions]="[100]"
+              (page)="handlePage($event)">
+</mat-paginator>
 </div>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
