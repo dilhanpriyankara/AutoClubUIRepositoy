@@ -6,8 +6,47 @@ import { UpdateFormDialogComponent } from "../update-form-dialog/update-form-dia
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
+const PAGINATION_QUERY=gql`query($pagesize:Int!){
+                            findPeginationData(pagesize:$pagesize){    
+                              id
+                              firstName
+                              lastName
+                              email
+                              carModel
+                              carMake
+                              ageOfVehicle
+                              manufacturedDate
+                            }
+                          }`;
 
+const SELECT_ALLQUERY= gql`query{
+                          findAllData{
+                          id
+                            lastName
+                            firstName
+                            email
+                            carModel
+                            carMake
+                            ageOfVehicle
+                            manufacturedDate
+                          }
+                        }      
+                        `;
+const DELETE_QUERY=gql`mutation ($recordid:Int!){
+                        deletedata(recordid:$recordid){
+                          id            
+                        }
+                      }
+                      `;
 
+const UPDATE_QUERY=gql`mutation ($input:UpdatedataInputType!) {
+                       updatedata(UpdatedataInputType: $input) {
+                        id
+                        firstName
+                        lastName
+                      
+                      }
+                    }`;
 
   @Component({
     selector: 'app-autoclub-data-table',
@@ -23,40 +62,20 @@ import gql from 'graphql-tag';
   
     
   
-  ngOnInit(): void {
-      this.fetchData();
+    ngOnInit(): void {
+        this.fetchData();      
+    }
       
-  }
-    
     displayedColumns: string[] = ['id', 'firstName', 'lastName', 'email','phone','carModel','carMake','ageOfVehicle','manufacturedDate','actions'];    
     dataSource=[]; 
     
-  
-     
-    
 
     fetchData(){ 
-      return this.apollo.watchQuery({query : gql`
-                query{
-                  findAllData{
-                  id
-                    lastName
-                    firstName
-                    email
-                    carModel
-                    carMake
-                    ageOfVehicle
-                    manufacturedDate
-                  }
-                }      
-                `
-
-    }).valueChanges.subscribe(({ data }: any) => {
-      
+      return this.apollo.watchQuery({query :SELECT_ALLQUERY
+    }).valueChanges.subscribe(({ data }: any) => {      
       //console.log(data.findAllData);
-       this.dataSource =data.findAllData;
-      })      
-
+        this.dataSource =data.findAllData;
+      })
     }    
 
     wildcardFilterChar(filterValue: string) {    
@@ -70,63 +89,34 @@ import gql from 'graphql-tag';
                   
         );
       }
-  }
+    }
 
-  public handlePage(e: any) {
-    
-    let pagesize=(e.pageIndex*100);
-    console.log(pagesize);
-    return this.apollo.watchQuery({query : gql`
-                        query{
-                          findPeginationData(pagesize:${pagesize}){    
-                            id
-                            firstName
-                            lastName
-                            email
-                            carModel
-                            carMake
-                            ageOfVehicle
-                            manufacturedDate
-                          }
-                        }
-    `
+    public handlePage(e: any) {    
+      let pagesize=(e.pageIndex*100);
+      console.log(pagesize);
+      return this.apollo.watchQuery({query :PAGINATION_QUERY,
+                                    variables:{"pagesize":pagesize}
+      }).valueChanges.subscribe(({ data }: any) => {
 
-    }).valueChanges.subscribe(({ data }: any) => {
-
-        console.log(data.findPeginationData);
-        this.dataSource =data.findPeginationData;
-    }) 
-    
-  }
-
-
-  
-
-   
-
+          console.log(data.findPeginationData);
+          this.dataSource =data.findPeginationData;
+      }) 
+      
+    }
 
     delete(id: any) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent);  
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-         //console.log(result);
-         this.apollo.mutate({mutation:gql`
-                            mutation  {
-                              deletedata(recordid:${id}){
-                                id            
-                              }
-                            }
-                            
-                            `
-         }).subscribe((result)=>{
-         
-          console.log("sucessfully deleted"+result.data);
-
-
-         })
+          //console.log(result);
+          this.apollo.mutate({mutation:DELETE_QUERY,
+                              variables:{"recordid":id}
+          }).subscribe((result)=>{          
+            console.log("sucessfully deleted"+result.data);
+          })
         }
       });
-  }
+    }
 
 
     edit(data: any) {
@@ -137,28 +127,20 @@ import gql from 'graphql-tag';
       });
       
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result);
+        
         if (result) {          
-          this.apollo.mutate({mutation:gql`
-          mutation  {
-            updatedata(UpdatedataInputType: {
-                id: ${result.id}, 
-                firstName: "${result.firstName}", 
-                lastName: "${result.lastName}",       
-                email: "${result.email}",
-                carModel: "${result.carModel}", 
-                carMake: "${result.carMake}", 
-                ageOfVehicle: ${result.ageOfVehicle}, 
-                manufacturedDate: "${result.manufacturedDate}"
-                }) {
-              id
-              firstName
-              lastName
-             
-            }
-          }
-          
-          `
+          this.apollo.mutate({mutation:UPDATE_QUERY,
+            variables: {"input":{
+              "id": result.id, 
+              "firstName": result.firstName, 
+              "lastName": result.lastName,       
+              "email": result.email,
+              "carModel": result.carModel, 
+              "carMake": result.carMake, 
+              "ageOfVehicle": parseInt(result.ageOfVehicle), 
+              "manufacturedDate":result.manufacturedDate
+        }
+        }
         }).subscribe((result)=>{
 
           console.log("sucessfully updated"+result);
@@ -167,45 +149,8 @@ import gql from 'graphql-tag';
         })
         }
       });
-    }
-   
-    // fetchData1(){  //This is called to rest endpoint
-     
-    //      this.crudService.getUsers().subscribe((res: {}) => {
-    //      var jsonstring= JSON.stringify(res);
-    //      const obj = JSON.parse(jsonstring);
-    //      console.log(JSON.stringify(obj.data.allAutoclubdata.nodes));
-    //      var data1=JSON.stringify(obj.data.allAutoclubdata.nodes);        
-    //      this.dataSource = obj.data.allAutoclubdata.nodes;
-        
-    //     })      
-    // }
+    } 
     
-     // delete1(id: any) {
-    //     const dialogRef = this.dialog.open(ConfirmationDialogComponent);  
-    //     dialogRef.afterClosed().subscribe(result => {
-    //       if (result) {
-    //         console.log(result);
-    //       this.crudService.remove(id).subscribe(res=>{
-    //         console.log(res);            
-    //         }); 
-    //       }
-    //     });
-    // }
-
-
-    // public handlePage(e: any) {   
-    //   console.log(e.pageSize-100);
-    //    this.crudService.getPaginationData(e.pageSize-100).subscribe((res: {}) => {
-    //     var jsonstring= JSON.stringify(res);
-    //     const obj = JSON.parse(jsonstring);
-    //     console.log(JSON.stringify(obj.data.allAutoclubdata.nodes));    
-    //     this.dataSource = obj.data.allAutoclubdata.nodes;       
-    //   })      
-      
-      
-    // }
-  
  }
 
 
