@@ -4,6 +4,20 @@ import { Apollo } from 'apollo-angular';
 import { AutoclubDataDownloadService } from './autoclub-data-download.service';
 import gql from 'graphql-tag';
 
+const DOWNLOADDATA_QUERY=gql`query($ageofcar:Int!){
+                              exportDatatoCSV(ageofcar:$ageofcar){    
+                                id
+                                firstName
+                                lastName
+                                email
+                                carModel
+                                carMake
+                                ageOfVehicle
+                                manufacturedDate
+                              }
+                            }
+                            `;
+
 @Component({
   selector: 'app-autoclub-data-download',
   templateUrl: './autoclub-data-download.component.html',
@@ -41,20 +55,8 @@ export class AutoclubDataDownloadComponent implements OnInit {
    //this.autoclubDataDownloadService.getDownloadCsv(form.value.selectedQuantity).subscribe((result)=>{
     //  console.log(result);
       
-      return this.apollo.watchQuery({query : gql`
-      query{
-        exportDatatoCSV(ageofcar:${form.value.selectedQuantity}){    
-          id
-          firstName
-          lastName
-          email
-          carModel
-          carMake
-          ageOfVehicle
-          manufacturedDate
-        }
-      }
-`
+      return this.apollo.watchQuery({query :DOWNLOADDATA_QUERY,
+                                    variables:{"ageofcar":parseInt(form.value.selectedQuantity)}
 
     }).valueChanges.subscribe(({ data }: any) => {
 
