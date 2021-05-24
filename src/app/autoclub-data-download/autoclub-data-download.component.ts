@@ -33,6 +33,27 @@ export class AutoclubDataDownloadComponent implements OnInit {
   messageNotific;
   ishide=false;;
   ngOnInit(): void {
+   /* this.autoclubDataDownloadService.receiveMassage().subscribe((data)=>{
+      console.log(data);
+      this.messageNotific=data;
+      this.ishide=true;
+
+      setTimeout(() => {
+        this.closeAlert()
+      }, 2000);
+      
+    })*/
+  }
+
+
+
+  options: string[] = ["10", "15", "20","25", "30", "35","40"];
+  selectedQuantity = "10";
+
+  onSubmit(form: NgForm) {
+    console.log('Your form data : ', form.value.selectedQuantity);
+   
+    /*Socket cluster Listning*/
     this.autoclubDataDownloadService.receiveMassage().subscribe((data)=>{
       console.log(data);
       this.messageNotific=data;
@@ -43,30 +64,15 @@ export class AutoclubDataDownloadComponent implements OnInit {
       }, 2000);
       
     })
-  }
-
-
-
-  options: string[] = ["10", "15", "20","25", "30", "35","40"];
-  selectedQuantity = "10";
-
-  onSubmit(form: NgForm) {
-    console.log('Your form data : ', form.value.selectedQuantity);
-   //this.autoclubDataDownloadService.getDownloadCsv(form.value.selectedQuantity).subscribe((result)=>{
-    //  console.log(result);
-      
-      return this.apollo.watchQuery({query :DOWNLOADDATA_QUERY,
+    /*End Socket cluster Listning*/
+   
+    return this.apollo.watchQuery({query :DOWNLOADDATA_QUERY,
                                     variables:{"ageofcar":parseInt(form.value.selectedQuantity)}
 
     }).valueChanges.subscribe(({ data }: any) => {
-
-    //console.log(data);
-   
+     //console.log(data);   
     }) 
 
-
-
-     
     //});   
    
    

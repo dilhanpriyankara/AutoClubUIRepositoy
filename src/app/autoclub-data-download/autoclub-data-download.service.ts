@@ -19,7 +19,6 @@ export class AutoclubDataDownloadService {
     port: 8000,
   });
   constructor(private httpClient: HttpClient) { 
-                          
               }  
  
               
@@ -34,11 +33,12 @@ export class AutoclubDataDownloadService {
   receiveMassage():Observable<any>{
  
     return new Observable((subscriber)=>{ 
-      (async () => {
-        let channel = this.socket.subscribe("csvcompletedChanel");
+      (async () => {                
+        let chanelkey=Math.random().toString(36).substr(2, 5);
+        let channel = this.socket.subscribe(chanelkey);
       
         //send data to the  server
-        //this.socket.transmit("channelName", "Hi Im a new client ");
+        this.socket.transmit("channelName", chanelkey);
     
         //data received from server
         for await (let data of channel) {
@@ -50,7 +50,6 @@ export class AutoclubDataDownloadService {
         
     })
 }
-
   
 
   processError(err: { error: { message: string; }; status: any; message: any; }) {
